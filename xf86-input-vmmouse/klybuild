@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+name="xf86-input-vmmouse"
+version="13.2.0"
+description="VMWare mouse input driver"
+source="https://xorg.freedesktop.org/releases/individual/driver/xf86-input-vmmouse-$version.tar.xz"
+depends=""
+group="x11.drivers"
+setup(){
+cd $SOURCEDIR
+#./autogen.sh
+./configure --prefix=/usr \
+--libdir=/usr/lib64/
+}
+build(){
+make
+}
+package(){
+make install DESTDIR=$DESTDIR
+}

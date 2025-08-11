@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+name="libdrm"
+version="2.4.120"
+description="X.Org libdrm library"
+source="https://dri.freedesktop.org/libdrm/libdrm-$version.tar.xz"
+depends="libpciaccess"
+group="x11.libs"
+setup(){
+cd $SOURCEDIR
+meson setup $BUILDDIR --prefix=/usr \
+-D default_library=both \
+-D udev=false \
+-D etnaviv=disabled \
+-D freedreno=disabled \
+-D vc4=disabled \
+-D valgrind=disabled \
+-D install-test-programs=true
+}
+build(){
+ninja -C $BUILDDIR
+}
+package(){
+DESTDIR=$DESTDIR ninja -C $BUILDDIR install
+}

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+name="xcalc"
+version="1.1.2"
+description="scientific calculator for X"
+source="https://gitlab.freedesktop.org/xorg/app/xcalc/-/archive/\
+xcalc-$version/xcalc-xcalc-$version.tar.gz"
+depends="libXaw,libICE,libSM,libXau,libXext,libXi,libXmu,libXrender,libXt,libxcb"
+group="x11.apps"
+setup(){
+cd $SOURCEDIR
+autoreconf -fvi
+./configure --prefix=/usr \
+--libdir=/usr/lib64/ \
+--with-appdefaultdir=/usr/share/X11/app-defaults
+}
+build(){
+make
+}
+package(){
+make install DESTDIR=$DESTDIR
+}

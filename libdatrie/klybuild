@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+name="libdatrie"
+version="0.2.13"
+description="Implementation of double-array structure for\
+representing trie, as proposed by Junichi Aoe."
+source="https://github.com/tlwg/libdatrie/releases/download/\
+v$version/libdatrie-$version.tar.xz"
+depends=""
+group="x11.libs"
+setup(){
+$SOURCEDIR/configure --prefix=/usr \
+--libdir=/usr/lib64/
+}
+build(){
+make
+}
+package(){
+make install DESTDIR=$DESTDIR
+}

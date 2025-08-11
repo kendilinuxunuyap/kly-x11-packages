@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+name="xorg-server"
+version="21.1.6"
+description="X.Org X servers"
+#source="https://www.x.org/releases/individual/xserver/xorg-server-$version.tar.xz"
+source="https://gitlab.freedesktop.org/xorg/xserver/-/archive/xorg-server-$version/xserver-xorg-server-$version.tar.gz"
+depends="libmd,libbsd,libepoxy,libglvnd,libunwind,libfontenc,libxkbfile,xauth, \
+xkbcomp,setxkbmap,\ freetype,libXfont2,libxcvt,mesa,libX11,libdrm,pixman, \
+font-util,xcb-util-renderutil,xcb-util, xcb-util-image,xcb-util-wm,xcb-util-keysyms"
+group="x11.base"
+setup(){
+cd $SOURCEDIR
+autoreconf -fvi
+./configure \
+  --prefix=/usr \
+  --sysconfdir=/etc \
+  --localstatedir=/var \
+  --enable-config-udev \
+  --enable-systemd-logind \
+  --with-systemd-daemon=no \
+  --with-systemd-login=yes \
+  --with-logindir=elogind \
+  --with-xkb-output=/var/lib/xkb
+}
+build(){
+make 
+}
+package(){
+DESTDIR=$DESTDIR make install
+}

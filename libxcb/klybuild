@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+name="libxcb"
+version="1.17.0"
+description="X C-language Bindings library"
+source="https://gitlab.freedesktop.org/xorg/lib/libxcb/-\
+/archive/libxcb-$version/libxcb-libxcb-$version.tar.gz"
+depends="libXau,libXdmcp,xcb-proto"
+builddepend="libxslt,python3,util-macros"
+group="x11.libs"
+setup(){
+cd $SOURCEDIR
+#export PKG_CONFIG_PATH=/usr/lib/pkgconfig
+autoreconf -fvi
+./configure --prefix=/usr \
+--libdir=/usr/lib64 \
+--enable-xinput \
+--enable-xkb \
+--disable-static
+}
+build(){
+#sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+make
+}
+package(){
+make install DESTDIR=$DESTDIR
+}

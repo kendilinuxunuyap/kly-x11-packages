@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+name="openbox"
+version="3.6.1"
+description="Highly configurable and lightweight X11 window manager"
+source="http://openbox.org/dist/openbox/openbox-$version.tar.xz"
+depends="libSM,libxml2,pango,startup-notification,libXrandr,librsvg,libXinerama"
+group="x11.wm"
+setup(){
+$SOURCEDIR/configure --prefix=/usr \
+--sysconfdir=/etc \
+--libdir=/usr/lib64/
+}
+build(){
+make
+}
+package(){
+make install DESTDIR=$DESTDIR
+}

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+name="xf86-video-fbdev"
+version="0.5.0"
+description="video driver for framebuffer devic"
+source="https://gitlab.freedesktop.org/xorg/driver/xf86-video-fbdev/-/archive/\
+xf86-video-fbdev-$version/xf86-video-fbdev-xf86-video-fbdev-$version.tar.gz"
+depends=""
+group="x11.drivers"
+setup(){
+cd $SOURCEDIR
+./autogen.sh
+./configure --prefix=/usr \
+--libdir=/usr/lib64/
+}
+build(){
+make
+}
+package(){
+make install DESTDIR=$DESTDIR
+}

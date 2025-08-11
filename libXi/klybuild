@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+name="libXi"
+version="1.8"
+description="X.Org Xi library"
+source="https://www.x.org/archive/individual/lib/libXi-$version.tar.gz"
+depends="libXfixes"
+group="x11.libs"
+setup(){
+$SOURCEDIR/configure --prefix=/usr \
+--libdir=/usr/lib64/
+}
+build(){
+make
+}
+package(){
+make install DESTDIR=$DESTDIR
+}

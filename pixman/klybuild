@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+name="pixman"
+version="0.42.2"
+description="Low-level pixel manipulation routines"
+source="https://www.x.org/archive/individual/lib/pixman-$version.tar.gz"
+depends=""
+group="x11.libs"
+setup(){
+	$SOURCEDIR/configure --prefix=/usr \
+		--libdir=/usr/lib64/
+}
+build(){
+	make
+}
+package(){
+	make install DESTDIR=$DESTDIR
+}

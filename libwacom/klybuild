@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+name="libwacom"
+version="2.10.0"
+url="https://github.com/linuxwacom/libwacom/wiki"
+description="Library to help implement Wacom tablet settings"
+source="https://github.com/linuxwacom/libwacom/releases/download/\
+libwacom-${version}/libwacom-${version}.tar.xz"
+depends="eudev"
+builddepend="meson"
+group="dev.libs"
+setup(){
+cd $SOURCEDIR
+meson setup $BUILDDIR \
+--prefix=/usr \
+-Dtests=disabled
+}
+build(){
+ninja -C $BUILDDIR
+}
+
+package(){
+DESTDIR=$DESTDIR ninja -C $BUILDDIR install
+install -D -m644 COPYING "${DESTDIR}/usr/share/licenses/${name}/LICENSE"
+}
