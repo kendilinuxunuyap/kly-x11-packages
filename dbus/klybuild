@@ -41,7 +41,6 @@ package(){
 		mkdir -p ${DESTDIR}/etc/runlevels/$level
 	done
 	cd ${DESTDIR}/etc/runlevels/default
-	ln -s ../init.d/dbus dbus
-
+	ln -s ../../init.d/dbus dbus
     
 }
